@@ -7,7 +7,6 @@
     <title>Brother Buds</title>
     <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Poppins:wght@400;700&family=Permanent+Marker&family=Raleway:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* Dark Mode Design mit Akzenten und Hover-Effekten */
         body {
             font-family: 'Poppins', sans-serif;
             margin: 0;
@@ -35,19 +34,19 @@
             font-size: 2.5em;
             margin: 0;
             font-family: 'Bangers', cursive;
-            color: #ff8a66; /* Angepasste Farbe */
+            color: #ff8a66;
             letter-spacing: 1px;
         }
         .announcement {
             color: #ffcc66;
-            font-size: 1.2em; /* Kleinere Schrift */
+            font-size: 1.2em;
             margin-top: 10px;
-            font-weight: bold; /* Fett gedruckt */
-            text-shadow: 0 0 5px rgba(255, 204, 102, 0.5), 0 0 10px rgba(255, 204, 102, 0.3); /* Leichter Leuchteffekt */
-            transition: text-shadow 0.3s ease; /* Sanfter Übergang für den Leuchteffekt */
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(255, 204, 102, 0.5), 0 0 10px rgba(255, 204, 102, 0.3);
+            transition: text-shadow 0.3s ease;
         }
         .announcement:hover {
-            text-shadow: 0 0 10px rgba(255, 204, 102, 1), 0 0 20px rgba(255, 204, 102, 0.5); /* Verstärkter Leuchteffekt */
+            text-shadow: 0 0 10px rgba(255, 204, 102, 1), 0 0 20px rgba(255, 204, 102, 0.5);
         }
         section {
             background: #333333;
@@ -55,59 +54,42 @@
             margin: 15px 0;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            transition: transform 0.6s ease-in-out;
-            transform-style: preserve-3d; /* Für 3D-Drehung */
+            transition: transform 0.6s ease, box-shadow 0.3s ease;
             position: relative;
             overflow: hidden;
+            perspective: 1000px;
+            cursor: pointer;
         }
-        .section-turned {
-            transform: rotateY(180deg); /* Umdrehung */
+        section .content, section img {
+            backface-visibility: hidden;
+            transition: transform 0.6s;
         }
-        section::before {
-            content: "";
+        section .content {
+            display: block;
+        }
+        section img {
+            display: none;
             position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 204, 102, 0.5);
-            box-shadow: 0 0 20px rgba(255, 204, 102, 0.8);
-            z-index: -1;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+        .section-turned .content {
+            display: none;
+        }
+        .section-turned img {
+            display: block;
+            transform: rotateY(0deg);
         }
         h2 {
             color: #ffcc66;
-            font-size: 1.4em; /* Kleinere Schriftgröße für die Sektionen */
-            font-family: 'Raleway', sans-serif; /* Neue Schriftart */
+            font-size: 1.4em;
+            font-family: 'Raleway', sans-serif;
             margin-bottom: 10px;
         }
-        h3 {
-            color: #ffb3a7;
-            font-size: 1.3em;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-        ul {
-            list-style-type: none;
-            padding: 0;
-        }
-        li {
-            background: #444444;
-            margin: 5px 0;
-            padding: 10px;
-            border-radius: 5px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 1.1em;
-            color: #ffcc66;
-        }
-        .hash-image, .cali-image, .standard-image {
-            display: none; /* Standardmäßig versteckt */
-            width: 100%; /* Oder eine spezifische Größe */
-            border-radius: 10px; /* Für abgerundete Ecken */
-            margin-top: 10px; /* Abstand nach oben */
-        }
+        /* VIP-Bereich */
         .vip-section {
             background: #555555;
             padding: 20px;
@@ -163,17 +145,6 @@
             background-color: #636363;
             border: 2px solid #cccccc;
         }
-        /* Symmetrische Schrift in den VIP-Sektionen */
-        .gold-vip h2, .silver-vip h2 {
-            font-size: 1.8em;
-            margin-bottom: 10px;
-            line-height: 1.2; /* Erhöhte Zeilenhöhe für bessere Symmetrie */
-        }
-        /* Leuchtender Effekt für aktive Sektionen */
-        .active-section {
-            box-shadow: 0 0 15px rgba(255, 204, 102, 1), 0 0 30px rgba(255, 204, 102, 0.5);
-            transition: box-shadow 0.5s ease;
-        }
     </style>
 </head>
 <body>
@@ -184,109 +155,86 @@
     </header>
 
     <main>
-        <section id="cali-weed" onclick="toggleCaliSection(this)">
-            <h2>🌿 Das beste Cali Weed im Game!</h2>
-            <p>Neue Strains kommen bald! 🌞✨</p>
-            <ul>
-                <li>2g <span>30 €</span></li>
-                <li>5g <span>70 €</span></li>
-                <li>10g <span>120 €</span></li>
-            </ul>
-            <h3>Verfügbare Strains:</h3>
-            <ul>
-                <li>Gelato</li>
-                <li>Blue Dream</li>
-                <li>Girl Scout Cookies</li>
-            </ul>
-            <img src="https://example.com/cali-image.jpg" alt="Cali Weed Bild" class="cali-image">
+        <section id="cali-weed" onclick="toggleSection(this)">
+            <div class="content">
+                <h2>🌿 Das beste Cali Weed im Game!</h2>
+                <p>Neue Strains kommen bald! 🌞✨</p>
+                <ul>
+                    <li>2g <span>30 €</span></li>
+                    <li>5g <span>70 €</span></li>
+                    <li>10g <span>120 €</span></li>
+                </ul>
+                <h3>Verfügbare Strains:</h3>
+                <ul>
+                    <li>Gelato</li>
+                    <li>Blue Dream</li>
+                    <li>Girl Scout Cookies</li>
+                </ul>
+            </div>
+            <img src="https://example.com/cali-image.jpg" alt="Cali Weed Bild">
         </section>
 
-        <section id="standard-weed" onclick="toggleStandardSection(this)">
-            <h2>🌿 Standard Weed</h2>
-            <p>Shababs, besseres gibt's nicht! 🍃✨</p>
-            <ul>
-                <li>1g <span>10 €</span></li>
-                <li>5g <span>45 €</span></li>
-                <li>10g <span>85 €</span></li>
-            </ul>
-            <h3>Verfügbare Strains:</h3>
-            <ul>
-                <li>Amnesia</li>
-                <li>White Widow</li>
-            </ul>
-            <img src="https://example.com/standard-image.jpg" alt="Standard Weed Bild" class="standard-image">
+        <section id="standard-weed" onclick="toggleSection(this)">
+            <div class="content">
+                <h2>🌿 Standard Weed</h2>
+                <p>Shababs, besseres gibt's nicht! 🍃✨</p>
+                <ul>
+                    <li>1g <span>10 €</span></li>
+                    <li>5g <span>45 €</span></li>
+                    <li>10g <span>85 €</span></li>
+                </ul>
+                <h3>Verfügbare Sorten:</h3>
+                <ul>
+                    <li>Amnesia</li>
+                    <li>Moby Dick</li>
+                </ul>
+            </div>
+            <img src="https://example.com/standard-image.jpg" alt="Standard Weed Bild">
         </section>
 
-        <section id="hash" onclick="toggleHashSection(this)">
-            <h2>🍫 Hash</h2>
-            <p>Schokolade!🔥</p>
-            <ul>
-                <li>1g <span>10 €</span></li>
-                <li>5g <span>45 €</span></li>
-                <li>10g <span>85 €</span></li>
-            </ul>
-            <h3>Verfügbare Sorten:</h3>
-            <ul>
-                <li>La Mousse</li>
-                <li>Fresh Frozen</li>
-            </ul>
-            <img src="https://example.com/hash-image.jpg" alt="Hash Bild" class="hash-image">
+        <section id="hash" onclick="toggleSection(this)">
+            <div class="content">
+                <h2>🍫 Hash</h2>
+                <p>Schokolade!🔥</p>
+                <ul>
+                    <li>1g <span>10 €</span></li>
+                    <li>5g <span>45 €</span></li>
+                    <li>10g <span>85 €</span></li>
+                </ul>
+                <h3>Verfügbare Sorten:</h3>
+                <ul>
+                    <li>La Mousse</li>
+                    <li>Fresh Frozen</li>
+                </ul>
+            </div>
+            <img src="https://example.com/hash-image.jpg" alt="Hash Bild">
         </section>
-
-        <div class="vip-section">
-            <h2>VIP Bereich</h2>
-            <p>Werden Sie ein Teil unserer exklusiven Community!</p>
-            <button class="vip-button" onclick="alert('VIP Bereich - Bald verfügbar!')">Erfahren Sie mehr</button>
-        </div>
 
         <div class="gold-silver-vip">
-            <div class="gold-vip">
-                <h2>Gold VIP</h2>
-                <p>Besondere Vorteile für unsere Gold Mitglieder!</p>
+            <div class="gold-vip vip-section">
+                <h2>👑 Gold VIP</h2>
+                <p>Exklusive Vorteile und Rabatte für unsere VIPs! 💎✨</p>
+                <button class="vip-button" onclick="showPasswordPrompt()">Click me!</button>
             </div>
-            <div class="silver-vip">
-                <h2>Silber VIP</h2>
-                <p>Vorteile für unsere Silber Mitglieder!</p>
+            <div class="silver-vip vip-section">
+                <h2>🥈 Silber VIP</h2>
+                <p>Silber-Vorteile und exklusive Deals für Einsteiger!</p>
+                <button class="vip-button" onclick="showPasswordPrompt()">Click me!</button>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; 2024 Brother Buds. Alle Rechte vorbehalten.</p>
+        <p>&copy; "Dieser Inhalt dient ausschließlich Bildungs- und Informationszwecken. Es werden keine Produkte zum Verkauf angeboten. Kontaktieren Sie uns für weitere Informationen.</p>
     </footer>
 
     <script>
-        function toggleCaliSection(section) {
-            const image = section.querySelector(".cali-image");
-            if (section.classList.contains("section-turned")) {
-                section.classList.remove("section-turned");
-                image.style.display = "none"; // Bild ausblenden
-            } else {
-                section.classList.add("section-turned");
-                image.style.display = "block"; // Bild einblenden
-            }
+        function toggleSection(section) {
+            section.classList.toggle("section-turned");
         }
-
-        function toggleStandardSection(section) {
-            const image = section.querySelector(".standard-image");
-            if (section.classList.contains("section-turned")) {
-                section.classList.remove("section-turned");
-                image.style.display = "none"; // Bild ausblenden
-            } else {
-                section.classList.add("section-turned");
-                image.style.display = "block"; // Bild einblenden
-            }
-        }
-
-        function toggleHashSection(section) {
-            const image = section.querySelector(".hash-image");
-            if (section.classList.contains("section-turned")) {
-                section.classList.remove("section-turned");
-                image.style.display = "none"; // Bild ausblenden
-            } else {
-                section.classList.add("section-turned");
-                image.style.display = "block"; // Bild einblenden
-            }
+        
+        function showPasswordPrompt() {
+            prompt("Bitte geben Sie das VIP-Passwort ein:");
         }
     </script>
 </body>
