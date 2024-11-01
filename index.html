@@ -214,12 +214,17 @@
             <ul>
                 <li>1g <span>10 €</span></li>
                 <li>5g <span>45 €</span></li>
-                <li>10g <span>85 €</span></li>
+                <li>10g <span>80 €</span></li>
             </ul>
-            <h3>Verfügbare Sorten:</h3>
+        </section>
+
+        <section id="edibles" onclick="activateSection(this)">
+            <h2>🍬 Edibles</h2>
+            <p>Essbare Leckereien für jeden! 🍭</p>
             <ul>
-                <li>La Mousse</li>
-                <li>Fresh Frozen</li>
+                <li>Gummibärchen <span>5 €</span></li>
+                <li>Brownies <span>10 €</span></li>
+                <li>Schokoladentafeln <span>15 €</span></li>
             </ul>
         </section>
 
@@ -238,17 +243,13 @@
     </main>
 
     <footer>
-        <p>&copy; Nothing for Sale, purely educational. Purposes? - Get in contact with us for more information!</p>
+        <p>&copy; 2024 Brother Buds. Alle Rechte vorbehalten.</p>
     </footer>
 
     <script>
         function showPasswordPrompt() {
-            var password = prompt("Bitte Passwort eingeben:");
-            if (password === "Huan145") {
-                window.location.href = "vip.html";
-            } else {
-                alert("Falsches Passwort! Zugang verweigert.");
-            }
+            // Redirect to the VIP page
+            window.location.href = "https://bb-cmd-dot.github.io/vip/";
         }
 
         function activateSection(section) {
