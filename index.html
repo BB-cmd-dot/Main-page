@@ -55,12 +55,13 @@
             margin: 15px 0;
             border-radius: 10px;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-            transition: transform 0.2s ease-in-out, box-shadow 0.3s ease;
+            transition: transform 0.6s ease-in-out;
+            transform-style: preserve-3d; /* Für 3D-Drehung */
             position: relative;
             overflow: hidden;
         }
-        section:hover {
-            transform: scale(1.02);
+        .section-turned {
+            transform: rotateY(180deg); /* Umdrehung */
         }
         section::before {
             content: "";
@@ -100,6 +101,12 @@
             align-items: center;
             font-size: 1.1em;
             color: #ffcc66;
+        }
+        .hash-image, .cali-image, .standard-image {
+            display: none; /* Standardmäßig versteckt */
+            width: 100%; /* Oder eine spezifische Größe */
+            border-radius: 10px; /* Für abgerundete Ecken */
+            margin-top: 10px; /* Abstand nach oben */
         }
         .vip-section {
             background: #555555;
@@ -177,7 +184,7 @@
     </header>
 
     <main>
-        <section id="cali-weed" onclick="activateSection(this)">
+        <section id="cali-weed" onclick="toggleCaliSection(this)">
             <h2>🌿 Das beste Cali Weed im Game!</h2>
             <p>Neue Strains kommen bald! 🌞✨</p>
             <ul>
@@ -191,9 +198,10 @@
                 <li>Blue Dream</li>
                 <li>Girl Scout Cookies</li>
             </ul>
+            <img src="https://example.com/cali-image.jpg" alt="Cali Weed Bild" class="cali-image">
         </section>
 
-        <section id="standard-weed" onclick="activateSection(this)">
+        <section id="standard-weed" onclick="toggleStandardSection(this)">
             <h2>🌿 Standard Weed</h2>
             <p>Shababs, besseres gibt's nicht! 🍃✨</p>
             <ul>
@@ -201,14 +209,15 @@
                 <li>5g <span>45 €</span></li>
                 <li>10g <span>85 €</span></li>
             </ul>
-            <h3>Verfügbare Sorten:</h3>
+            <h3>Verfügbare Strains:</h3>
             <ul>
                 <li>Amnesia</li>
-                <li>Moby Dick</li>
+                <li>White Widow</li>
             </ul>
+            <img src="https://example.com/standard-image.jpg" alt="Standard Weed Bild" class="standard-image">
         </section>
 
-        <section id="hash" onclick="activateSection(this)">
+        <section id="hash" onclick="toggleHashSection(this)">
             <h2>🍫 Hash</h2>
             <p>Schokolade!🔥</p>
             <ul>
@@ -221,48 +230,63 @@
                 <li>La Mousse</li>
                 <li>Fresh Frozen</li>
             </ul>
+            <img src="https://example.com/hash-image.jpg" alt="Hash Bild" class="hash-image">
         </section>
 
+        <div class="vip-section">
+            <h2>VIP Bereich</h2>
+            <p>Werden Sie ein Teil unserer exklusiven Community!</p>
+            <button class="vip-button" onclick="alert('VIP Bereich - Bald verfügbar!')">Erfahren Sie mehr</button>
+        </div>
+
         <div class="gold-silver-vip">
-            <div class="gold-vip vip-section">
-                <h2>👑 Gold VIP</h2>
-                <p>Exklusive Vorteile und Rabatte für unsere VIPs! 💎✨</p>
-                <button class="vip-button" onclick="showPasswordPrompt()">Click me!</button>
+            <div class="gold-vip">
+                <h2>Gold VIP</h2>
+                <p>Besondere Vorteile für unsere Gold Mitglieder!</p>
             </div>
-            <div class="silver-vip vip-section">
-                <h2>🥈 Silber VIP</h2>
-                <p>Silber-Vorteile und exklusive Deals für Einsteiger!</p>
-                <button class="vip-button" onclick="showPasswordPrompt()">Click me!</button>
+            <div class="silver-vip">
+                <h2>Silber VIP</h2>
+                <p>Vorteile für unsere Silber Mitglieder!</p>
             </div>
         </div>
     </main>
 
     <footer>
-        <p>&copy; Nothing for Sale, purely educational. Purposes? - Get in contact with us for more information!</p>
+        <p>&copy; 2024 Brother Buds. Alle Rechte vorbehalten.</p>
     </footer>
 
     <script>
-        function showPasswordPrompt() {
-            var password = prompt("Bitte Passwort eingeben:");
-            if (password === "Huan145") {
-                window.location.href = "vip.html";
+        function toggleCaliSection(section) {
+            const image = section.querySelector(".cali-image");
+            if (section.classList.contains("section-turned")) {
+                section.classList.remove("section-turned");
+                image.style.display = "none"; // Bild ausblenden
             } else {
-                alert("Falsches Passwort! Zugang verweigert.");
+                section.classList.add("section-turned");
+                image.style.display = "block"; // Bild einblenden
             }
         }
 
-        function activateSection(section) {
-            // Entferne den aktiven Effekt von allen Sektionen
-            const sections = document.querySelectorAll("section");
-            sections.forEach((sec) => {
-                sec.classList.remove("active-section");
-            });
-            // Füge den aktiven Effekt zur geklickten Sektion hinzu
-            section.classList.add("active-section");
-            // Entferne den Effekt nach einer kurzen Zeit
-            setTimeout(() => {
-                section.classList.remove("active-section");
-            }, 1000);
+        function toggleStandardSection(section) {
+            const image = section.querySelector(".standard-image");
+            if (section.classList.contains("section-turned")) {
+                section.classList.remove("section-turned");
+                image.style.display = "none"; // Bild ausblenden
+            } else {
+                section.classList.add("section-turned");
+                image.style.display = "block"; // Bild einblenden
+            }
+        }
+
+        function toggleHashSection(section) {
+            const image = section.querySelector(".hash-image");
+            if (section.classList.contains("section-turned")) {
+                section.classList.remove("section-turned");
+                image.style.display = "none"; // Bild ausblenden
+            } else {
+                section.classList.add("section-turned");
+                image.style.display = "block"; // Bild einblenden
+            }
         }
     </script>
 </body>
